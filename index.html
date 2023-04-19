@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Password Manager</title>
+  </head>
+  <body>
+    <h1>Password Manager</h1>
+
+    <form id="add-password-form">
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username" required /><br />
+
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required /><br />
+
+      <input type="submit" value="Add Password" />
+    </form>
+
+    <form id="get-password-form">
+      <label for="username">Username:</label>
+      <input type="text" id="get-username" name="username" required /><br />
+
+      <input type="submit" value="Get Password" />
+    </form>
+
+    <div id="result"></div>
+
+    <script src="https://cdn.ethers.io/lib/ethers-5.0.umd.min.js"></script>
+    <script>
+      const contractAddress = "0xD53887EE2fCD52A6AbAF1017adC22E1c0389Ff61";
+      const contractABI = {
+  "fragments": [
+    {
+      "type": "function",
+      "name": "getCredentials",
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_username",
+          "type": "string",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "string",
+          "_isParamType": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": null,
+          "type": "string",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "string",
+          "_isParamType": true
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "gas": null,
+      "_isFragment": true
+    },
+    {
+      "type": "function",
+      "name": "saveCredentials",
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_username",
+          "type": "string",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "string",
+          "_isParamType": true
+        },
+        {
+          "name": "_password",
+          "type": "string",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "string",
+          "_isParamType": true
+        }
+      ],
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "gas": null,
+      "_isFragment": true
+    }
+  ],
+  "_abiCoder": {
+    "coerceFunc": null
+  },
+  "functions": {
+    "getCredentials(string)": {
+      "type": "function",
+      "name": "getCredentials",
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_username",
+          "type": "string",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "string",
+          "_isParamType": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": null,
+          "type": "string",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "string",
+          "_isParamType": true
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "gas": null,
+      "_isFragment": true
+    },
+    "saveCredentials(string,string)": {
+      "type": "function",
+      "name": "saveCredentials",
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_username",
+          "type": "string",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "string",
+          "_isParamType": true
+        },
+        {
+          "name": "_password",
+          "type": "string",
+          "indexed": null,
+          "components": null,
+          "arrayLength": null,
+          "arrayChildren": null,
+          "baseType": "string",
+          "_isParamType": true
+        }
+      ],
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "gas": null,
+      "_isFragment": true
+    }
+  },
+  "errors": {},
+  "events": {},
+  "structs": {},
+  "deploy": {
+    "name": null,
+    "type": "constructor",
+    "inputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "gas": null,
+    "_isFragment": true
+  },
+  "_isInterface": true
+}
+
+      const provider = new ethers.providers.Web3Provider(web3.currentProvider);
+      const contract = new ethers.Contract(contractAddress, contractABI, provider);
+
+      const addPasswordForm = document.getElementById("add-password-form");
+      addPasswordForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const username = event.target.elements.username.value;
+        const password = event.target.elements.password.value;
+
+        const tx = await contract.addPassword(username, password);
+        await tx.wait();
+
+        console.log("Password added:", username, password);
+
+        event.target.reset();
+      });
+
+      const getPasswordForm = document.getElementById("get-password-form");
+      getPasswordForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const username = event.target.elements.username.value;
+
+        const password = await contract.getPassword(username);
+
+        console.log("Password retrieved:", username, password);
+
+        const resultDiv = document.getElementById("result");
+        resultDiv.innerHTML = `Password for ${username}: ${password}`;
+      });
+    </script>
+  </body>
+</html>
+

@@ -1,0 +1,75 @@
+{
+  "_format": "hh-sol-cache-2",
+  "files": {
+    "/home/adarsh/blockchain_project/contracts/PasswordManager.sol": {
+      "lastModificationDate": 1680768882540,
+      "contentHash": "8aaa74bcfa07ea83f752e7a6f90877b3",
+      "sourceName": "contracts/PasswordManager.sol",
+      "solcConfig": {
+        "version": "0.8.0",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "PasswordManager"
+      ]
+    },
+    "/home/adarsh/SmartCreds/contracts/PasswordManager.sol": {
+      "lastModificationDate": 1681917732199,
+      "contentHash": "e2cd9e8bb5b81f45325461f9077ecf47",
+      "sourceName": "contracts/PasswordManager.sol",
+      "solcConfig": {
+        "version": "0.8.0",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "PasswordManager"
+      ]
+    }
+  }
+}
